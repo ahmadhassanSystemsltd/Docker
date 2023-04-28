@@ -37,3 +37,4 @@ services:
       - /registry/certs:/certs
 EOF
 docker-compose up -d
+docker ps
