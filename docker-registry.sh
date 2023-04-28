@@ -34,3 +34,4 @@ services:
       - /registry/auth:/auth
       - /registry/certs:/certs
 EOF
+docker-compose up -d
