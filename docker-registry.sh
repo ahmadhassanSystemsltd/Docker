@@ -10,8 +10,7 @@ sudo mkdir -p /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /usr/local/share/ca-certificates
 update-ca-trust
-sudo mkdir -p auth
-sudo mkdir -p /registry/auth && cd auth
+sudo mkdir -p /registry/auth && cd /registry/auth
 sudo yum install httpd-tools.x86_64
 htpasswd -Bc registry.password admin
 echo "Creating Docker-Compose file and add necessary content"
