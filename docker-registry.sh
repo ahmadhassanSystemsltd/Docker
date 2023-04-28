@@ -1,17 +1,19 @@
 #!/bin/bash
 sudo mkdir -p /registry && cd "$_"
-sudo mkdir -p certs && cd certs
+mkdir certs
+#sudo mkdir -p certs && cd certs
 yum -y update
-openssl genrsa -out ca.key 2048
+echo "openssl genrsa -out ca.key 2048
 openssl req -new -x509 -days 365 -key ca.key -subj "/C=lh/ST=pb/L=as/O=sys/CN=dockerregistry.com" -out ca.crt
 openssl req -newkey rsa:2048 -nodes -keyout server.key -subj "/C=lh/ST=pb/L=as/O=sys/CN=*.dockerregistry.com" -out server.csr
-openssl x509 -req -extfile <(printf "subjectAltName=DNS:dockerregistry.com,DNS:www.dockerregistry.com") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
+openssl x509 -req -extfile <(printf "subjectAltName=DNS:dockerregistry.com,DNS:www.dockerregistry.com") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt" > certs
 sudo mkdir -p /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /usr/local/share/ca-certificates
 update-ca-trust
-sudo mkdir -p /registry/auth && cd /registry/auth
 sudo yum install httpd-tools.x86_64
+sudo mkdir auth
+echo "sudo yum install httpd-tools.x86_64" > auth
 htpasswd -Bc registry.password admin
 echo "Creating Docker-Compose file and add necessary content"
 sudo tee /registry/docker-compose.yaml<<EOF
