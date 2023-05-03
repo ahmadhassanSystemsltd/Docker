@@ -10,7 +10,7 @@ sudo mkdir -p /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /etc/docker/certs.d/dockerregistry.com
 cp /registry/certs/server.crt /usr/local/share/ca-certificates
 update-ca-trust
-sudo yum install httpd-tools.x86_64
+cd ..
 sudo mkdir -p auth && cd auth
 sudo yum install httpd-tools.x86_64
 htpasswd -Bc registry.password admin
